@@ -7,19 +7,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class EligibilityController {
+    @PostMapping(path = "/evaluate")
+    public boolean evaluate(@RequestBody EvaluateDTO evaluateDTO) throws Exception {
+        return evaluateDTO.getExpression().evaluate(evaluateDTO.getContext(), getQuestions());
+    }
+
     @GetMapping("/expression")
     public ExpressionList getExpression() {
         return new ExpressionList(
             AND,
-            new Expression("US_CITIZEN", EQUAL, "true"),
+            new QuestionExpression("US_CITIZEN", EQUAL, "true"),
             new ExpressionList(
                 OR,
-                new Expression("AGE", GREATER_THAN_OR_EQUAL, "21"),
-                new Expression("NAME", CONTAINS, "old")
+                new QuestionExpression("AGE", GREATER_THAN_OR_EQUAL, "21"),
+                new QuestionExpression("NAME", CONTAINS, "old")
             )
         );
     }
