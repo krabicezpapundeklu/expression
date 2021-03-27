@@ -21,7 +21,7 @@ const TEXT_OPERATORS: Operator[] = [
 ]
 
 export class QuestionExpression implements Expression {
-  type = 'questionExpression';
+  type = '.QuestionExpression';
 
   constructor(public question: string, public operator: Operator, public value: string) {
   }

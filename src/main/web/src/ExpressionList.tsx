@@ -5,7 +5,7 @@ import { Question } from "./Question";
 import { QuestionExpression } from "./QuestionExpression";
 
 export class ExpressionList implements Expression {
-  type = 'expressionList';
+  type = '.ExpressionList';
 
   constructor(public operator: Operator, public expressions: Expression[]) {
   }

@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class QuestionExpression implements Expression {
     private final String question;
@@ -16,7 +15,7 @@ public class QuestionExpression implements Expression {
     private final String value;
 
     @JsonCreator
-    public QuestionExpression(@JsonProperty("question") String question, @JsonProperty("operator") Operator operator, @JsonProperty("value") String value) {
+    public QuestionExpression(String question, Operator operator, String value) {
         this.question = question;
         this.operator = operator;
         this.value = value;

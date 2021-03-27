@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class EligibilityController {
-    @PostMapping(path = "/evaluate")
+    @PostMapping("/evaluate")
     public boolean evaluate(@RequestBody EvaluateDTO evaluateDTO) throws Exception {
         return evaluateDTO.getExpression().evaluate(evaluateDTO.getContext(), getQuestions());
     }

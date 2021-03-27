@@ -4,14 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ExpressionList implements Expression {
     private final Operator operator;
     private final Expression[] expressions;
 
     @JsonCreator
-    public ExpressionList(@JsonProperty("operator") Operator operator, @JsonProperty("expressions") Expression... expressions) {
+    public ExpressionList(Operator operator, Expression... expressions) {
         this.operator = operator;
         this.expressions = expressions;
     }
