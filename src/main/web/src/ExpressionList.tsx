@@ -72,24 +72,22 @@ export class ExpressionList implements Expression {
     )
   }
 
-  toString() {
+  toString(level: number) {
     if(this.expressions.length === 0) {
       return '';
     }
 
-    let s = '';
+    let s = level > 0 ? '(' : '';
 
     for (let i = 0; i < this.expressions.length; ++i) {
       if (i > 0) {
         s += ` ${this.operator} `;
       }
 
-      s += this.expressions[i].toString();
+      s += this.expressions[i].toString(level + 1);
     }
 
-    if(this.expressions.length > 1) {
-      s = '(' + s + ')';
-    }
+    s += level > 0 ? ')' : '';
 
     return s;
   }

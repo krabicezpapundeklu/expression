@@ -8,4 +8,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonTypeInfo(use = JsonTypeInfo.Id.MINIMAL_CLASS, property = "type")
 public interface Expression {
     boolean evaluate(Map<String, String> context, List<Question> questions) throws Exception;
+
+    default String toString(int level) {
+        return toString();
+    }
 }

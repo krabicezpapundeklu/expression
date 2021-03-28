@@ -24,11 +24,7 @@ export const App = () => {
   let expressionString = '';
 
   if(cleanExpression !== undefined) {
-    expressionString = cleanExpression.toString();
-
-    if(expressionString[0] === '(') {
-      expressionString = expressionString.substring(1, expressionString.length - 1);
-    }
+    expressionString = cleanExpression.toString(0);
   }
 
   return (

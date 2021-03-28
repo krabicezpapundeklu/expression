@@ -5,7 +5,7 @@ import { QuestionExpression } from './QuestionExpression'
 export interface Expression {
   clean(): Expression | undefined;
   render(questions: Question[], onChange: (expression: Expression) => void, onRemove?: () => void): JSX.Element;
-  toString(): string;
+  toString(level: number): string;
 }
 
 export const mapExpression = (value: any): Expression => {

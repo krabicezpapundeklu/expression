@@ -53,22 +53,31 @@ public class ExpressionList implements Expression {
 
     @Override
     public String toString() {
+        return toString(0);
+    }
+
+    @Override
+    public String toString(int level) {
         if(expressions.length == 0) {
             return "";
         }
 
         StringBuilder sb = new StringBuilder();
 
+        if(level > 0) {
+            sb.append('(');
+        }
+
         for(int i = 0; i < expressions.length; ++i) {
             if(i > 0) {
                 sb.append(' ').append(operator.getText()).append(' ');
             }
 
-            sb.append(expressions[i]);
+            sb.append(expressions[i].toString(level + 1));
         }
 
-        if(expressions.length > 1) {
-            sb.insert(0, '(').append(')');
+        if(level > 0) {
+            sb.append(')');
         }
 
         return sb.toString();
