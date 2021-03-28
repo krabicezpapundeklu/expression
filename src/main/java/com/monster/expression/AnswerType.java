@@ -1,4 +1,4 @@
-package com.monster.eligibility;
+package com.monster.expression;
 
 public enum AnswerType {
     BOOLEAN, NUMBER, TEXT

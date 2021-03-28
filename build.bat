@@ -7,4 +7,4 @@ xcopy build ..\resources\static /E /I
 popd
 
 call mvn install -D skipTests
-call java -jar target\eligibility-0.0.1-SNAPSHOT.jar
+call java -jar target\expression-0.0.1-SNAPSHOT.jar

@@ -33,7 +33,6 @@ export const App = () => {
 
   return (
     <>
-      <h1>Eligibility Demo</h1>
       <h2>Expression Builder</h2>
       {expression.render(questions, changeExpression)}
       <h2>Expression</h2>

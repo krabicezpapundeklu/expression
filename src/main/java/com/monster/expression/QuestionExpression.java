@@ -1,6 +1,6 @@
-package com.monster.eligibility;
+package com.monster.expression;
 
-import static com.monster.eligibility.Operator.IN;
+import static com.monster.expression.Operator.IN;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,13 +12,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 public class QuestionExpression implements Expression {
     private final String question;
     private final Operator operator;
-    private final String value;
+    private final String answer;
 
     @JsonCreator
-    public QuestionExpression(String question, Operator operator, String value) {
+    public QuestionExpression(String question, Operator operator, String answer) {
         this.question = question;
         this.operator = operator;
-        this.value = value;
+        this.answer = answer;
     }
 
     public String getQuestion() {
@@ -29,8 +29,8 @@ public class QuestionExpression implements Expression {
         return operator;
     }
 
-    public String getValue() {
-        return value;
+    public String getAnswer() {
+        return answer;
     }
 
     @Override
@@ -43,11 +43,11 @@ public class QuestionExpression implements Expression {
         }
 
         if(operator == IN) {
-            String[] values = value.split("[ ,;]");
+            String[] values = answer.split("[ ,;]");
             return Arrays.stream(values).anyMatch(v -> !v.isEmpty() && q.equals(map(answerType, v)));
         }
 
-        Object a = map(answerType, value);
+        Object a = map(answerType, answer);
 
         switch(operator) {
             case EQUAL:
@@ -78,7 +78,7 @@ public class QuestionExpression implements Expression {
 
     @Override
     public String toString() {
-        return question + ' ' + operator.getText() + " \"" + value.replaceAll("\"", "\\\\\"") + '"';
+        return question + ' ' + operator.getText() + " \"" + answer.replaceAll("\"", "\\\\\"") + '"';
     }
 
     private static Object map(AnswerType answerType, String value) {

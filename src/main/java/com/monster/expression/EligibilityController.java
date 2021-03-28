@@ -1,7 +1,7 @@
-package com.monster.eligibility;
+package com.monster.expression;
 
-import static com.monster.eligibility.AnswerType.*;
-import static com.monster.eligibility.Operator.*;
+import static com.monster.expression.AnswerType.*;
+import static com.monster.expression.Operator.*;
 
 import java.util.ArrayList;
 import java.util.List;

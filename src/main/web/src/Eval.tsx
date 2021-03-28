@@ -53,7 +53,7 @@ export const Eval = (props: EvalProps) => {
         {questions.map(question =>
           <li key={question.name}>
             <label>
-              {question.name}
+              {question.name} ({question.answerType})
               {question.answerType === AnswerType.BOOLEAN
                 ? <input onChange={event => changeRadio(question.name, event)} type="checkbox" checked={context[question.name] === 'true'} />
                 : <input onBlur={event => trimValue(question.name, event)} onChange={event => changeValue(question.name, event)} value={context[question.name] || ''} />

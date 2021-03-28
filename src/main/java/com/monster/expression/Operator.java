@@ -1,4 +1,4 @@
-package com.monster.eligibility;
+package com.monster.expression;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 

@@ -23,7 +23,7 @@ const TEXT_OPERATORS: Operator[] = [
 export class QuestionExpression implements Expression {
   type = '.QuestionExpression';
 
-  constructor(public question: string, public operator: Operator, public value: string) {
+  constructor(public question: string, public operator: Operator, public answer: string) {
   }
 
   clean() {
@@ -36,7 +36,7 @@ export class QuestionExpression implements Expression {
     }
 
     const changeOperator = (event: ChangeEvent<HTMLSelectElement>) => {
-      onChange(new QuestionExpression(this.question, mapOperator(event.target.value), this.value));
+      onChange(new QuestionExpression(this.question, mapOperator(event.target.value), this.answer));
     }
 
     const changeRadio = (event: ChangeEvent<HTMLInputElement>) => {
@@ -60,7 +60,7 @@ export class QuestionExpression implements Expression {
 
       if (question.answerType === AnswerType.BOOLEAN) {
         return (
-          <input checked={expression.value === 'true'} onChange={changeRadio} type="checkbox" />
+          <input checked={expression.answer === 'true'} onChange={changeRadio} type="checkbox" />
         )
       }
 
@@ -73,7 +73,7 @@ export class QuestionExpression implements Expression {
               <option key={operator} value={operator}>{operator}</option>
             )}
           </select>
-          <input onBlur={trimValue} onChange={changeValue} value={expression.value} />
+          <input onBlur={trimValue} onChange={changeValue} value={expression.answer} />
         </>
       )
     }
@@ -93,6 +93,6 @@ export class QuestionExpression implements Expression {
   }
 
   toString() {
-    return `${this.question} ${this.operator} "${this.value.replaceAll('"', '\\"')}"`;
+    return `${this.question} ${this.operator} "${this.answer.replaceAll('"', '\\"')}"`;
   }
 }

@@ -19,5 +19,5 @@ export const mapExpression = (value: any): Expression => {
     return expressionList;
   }
 
-  return new QuestionExpression(value.question, value.operator, value.value);
+  return new QuestionExpression(value.question, value.operator, value.answer);
 }
