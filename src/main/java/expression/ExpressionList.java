@@ -43,7 +43,7 @@ public class ExpressionList implements Expression {
                     }
                 }
 
-                return false;
+                return expressions.length == 0;
             }
 
             default:
