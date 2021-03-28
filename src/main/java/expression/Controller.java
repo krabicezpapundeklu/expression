@@ -1,7 +1,6 @@
 package expression;
 
 import static expression.AnswerType.*;
-import static expression.Operator.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,20 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class Controller {
     @PostMapping("/evaluate")
     public boolean evaluate(@RequestBody EvaluateDTO evaluateDTO) throws Exception {
-        return evaluateDTO.getExpression().evaluate(evaluateDTO.getContext(), getQuestions());
-    }
+        Expression expression;
 
-    @GetMapping("/expression")
-    public ExpressionList getExpression() {
-        return new ExpressionList(
-            AND,
-            new QuestionExpression("US_CITIZEN", EQUAL, "true"),
-            new ExpressionList(
-                OR,
-                new QuestionExpression("AGE", GREATER_THAN_OR_EQUAL, "21"),
-                new QuestionExpression("NAME", CONTAINS, "old")
-            )
-        );
+        if(evaluateDTO.isUseTree()) {
+            expression = evaluateDTO.getExpression();
+        } else {
+            expression = Parser.parse(evaluateDTO.getExpressionString());
+        }
+
+        return expression.evaluate(evaluateDTO.getContext(), getQuestions());
     }
 
     @GetMapping("/questions")
@@ -40,5 +34,10 @@ public class Controller {
         questions.add(new Question("US_CITIZEN", BOOLEAN));
 
         return questions;
+    }
+
+    @GetMapping("/sample-expression")
+    public Expression getSampleExpression() throws Exception {
+        return Parser.parse("US_CITIZEN == \"true\" && (AGE >= \"21\" || NAME contains \"old\")");
     }
 }

@@ -1,7 +1,9 @@
 package expression;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 
@@ -26,7 +28,7 @@ public class ExpressionList implements Expression {
     @Override
     public boolean evaluate(Map<String, String> context, List<Question> questions) throws Exception {
         switch(operator) {
-            case AND: {
+            case AND:
                 for(Expression expression : expressions) {
                     if(!expression.evaluate(context, questions)) {
                         return false;
@@ -34,9 +36,8 @@ public class ExpressionList implements Expression {
                 }
 
                 return true;
-            }
 
-            case OR: {
+            case OR:
                 for(Expression expression : expressions) {
                     if(expression.evaluate(context, questions)) {
                         return true;
@@ -44,11 +45,31 @@ public class ExpressionList implements Expression {
                 }
 
                 return expressions.length == 0;
-            }
 
             default:
                 throw new Exception("Invalid operator " + operator);
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) {
+            return true;
+        }
+
+        if(o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        ExpressionList that = (ExpressionList) o;
+        return operator == that.operator && Arrays.equals(expressions, that.expressions);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(operator);
+        result = 31 * result + Arrays.hashCode(expressions);
+        return result;
     }
 
     @Override

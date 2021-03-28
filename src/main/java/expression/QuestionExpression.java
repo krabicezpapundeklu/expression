@@ -5,6 +5,7 @@ import static expression.Operator.IN;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 
@@ -73,6 +74,25 @@ public class QuestionExpression implements Expression {
             default:
                 throw new Exception("Invalid operator " + operator);
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) {
+            return true;
+        }
+
+        if(o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        QuestionExpression that = (QuestionExpression) o;
+        return Objects.equals(question, that.question) && operator == that.operator && Objects.equals(answer, that.answer);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(question, operator, answer);
     }
 
     @Override

@@ -5,5 +5,6 @@ public enum Token {
     STRING,
     OPERATOR,
     OPEN_PAREN,
-    CLOSE_PAREN
+    CLOSE_PAREN,
+    EOI
 }

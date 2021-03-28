@@ -44,6 +44,7 @@ public class Lexer {
 
         switch(c) {
             case 0:
+                token = EOI;
                 return false;
 
             case '(':

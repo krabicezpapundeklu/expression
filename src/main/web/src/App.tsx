@@ -12,7 +12,7 @@ export const App = () => {
 
   useEffect(() => {
     fetch('/questions').then(data => data.json()).then(questions => setQuestions(questions));
-    fetch('/expression').then(data => data.json()).then(expression => setExpression(mapExpression(expression)));
+    fetch('/sample-expression').then(data => data.json()).then(expression => setExpression(mapExpression(expression)));
   }, []);
 
   const changeExpression = (expression: Expression) => {

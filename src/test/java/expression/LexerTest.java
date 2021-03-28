@@ -18,7 +18,7 @@ public class LexerTest {
         match(ID, "_abc_");
         match(ID, "X123");
 
-        assertFalse(lexer.read());
+        matchEnd();
     }
 
     public void testParens() throws Exception {
@@ -27,7 +27,7 @@ public class LexerTest {
         match(OPEN_PAREN);
         match(CLOSE_PAREN);
 
-        assertFalse(lexer.read());
+        matchEnd();
     }
 
     public void testOperators() throws Exception {
@@ -44,7 +44,7 @@ public class LexerTest {
         match(CONTAINS);
         match(IN);
 
-        assertFalse(lexer.read());
+        matchEnd();
     }
 
     public void testStrings() throws Exception {
@@ -56,7 +56,7 @@ public class LexerTest {
         match(STRING, "\\");
         match(STRING, "a\"b");
 
-        assertFalse(lexer.read());
+        matchEnd();
     }
 
     private void match(Token token) throws Exception {
@@ -75,4 +75,10 @@ public class LexerTest {
         assertEquals(lexer.getToken(), OPERATOR);
         assertEquals(lexer.getOperator(), operator);
     }
+
+    private void matchEnd() throws Exception {
+        assertFalse(lexer.read());
+        assertEquals(EOI, lexer.getToken());
+    }
+
 }

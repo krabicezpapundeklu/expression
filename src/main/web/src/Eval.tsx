@@ -28,13 +28,17 @@ export const Eval = (props: EvalProps) => {
     setContext({...context});
   }
 
-  const evaluate = () => {
+  const evaluate = (useTree: boolean) => {
     fetch('/evaluate', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ expression, context })
+      body: JSON.stringify({
+        useTree,
+        expression,
+        expressionString: expression?.toString(0),
+        context})
     })
       .then(data => {
         if (!data.ok) {
@@ -62,7 +66,8 @@ export const Eval = (props: EvalProps) => {
           </li>
         )}
       </ol>
-      <button disabled={expression === undefined} onClick={evaluate}>Evaluate</button>
+      <button disabled={expression === undefined} onClick={() => evaluate(true)}>Evaluate Tree</button>
+      <button disabled={expression === undefined} onClick={() => evaluate(false)}>Evaluate String</button>
       <span>{result}</span>
     </>
   )
