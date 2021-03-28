@@ -33,13 +33,8 @@ export const App = () => {
 
   return (
     <>
-      <h2>Expression Builder</h2>
       {expression.render(questions, changeExpression)}
-      <h2>Expression</h2>
-      <pre>
-        {expressionString}
-      </pre>
-      <h2>Evaluation</h2>
+      <pre>{expressionString}</pre>
       <Eval questions={questions} expression={cleanExpression} />
     </>
   )
