@@ -68,7 +68,7 @@ export class QuestionExpression implements Expression {
 
       return (
         <>
-          <select value={expression.operator} onChange={changeOperator}>
+          <select className="operator" value={expression.operator} onChange={changeOperator}>
             {operators.map((operator: Operator) =>
               <option key={operator} value={operator}>{operator}</option>
             )}

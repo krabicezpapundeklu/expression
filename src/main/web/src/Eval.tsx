@@ -11,7 +11,6 @@ export interface EvalProps {
 export const Eval = (props: EvalProps) => {
   const { questions, expression } = props;
   const [context, setContext] = useState<any>({});
-  const [result, setResult] = useState('');
 
   const changeRadio = (name: string, event: ChangeEvent<HTMLInputElement>) => {
     context[name] = event.target.checked.toString();
@@ -47,28 +46,37 @@ export const Eval = (props: EvalProps) => {
 
         return data.json();
       })
-      .then(data => setResult(`Result: ${data}`))
-      .catch(error => setResult(error.toString()));
+      .then(data => alert(`Result: ${data}`))
+      .catch(error => alert(error.toString()));
   }
 
   return (
-    <>
-      <ol>
-        {questions.map(question =>
-          <li key={question.name}>
-            <label>
-              {question.name} ({question.answerType})
-              {question.answerType === AnswerType.BOOLEAN
-                ? <input onChange={event => changeRadio(question.name, event)} type="checkbox" checked={context[question.name] === 'true'} />
-                : <input onBlur={event => trimValue(question.name, event)} onChange={event => changeValue(question.name, event)} value={context[question.name] || ''} />
-              }
-            </label>
-          </li>
-        )}
-      </ol>
-      <button disabled={expression === undefined} onClick={() => evaluate(true)}>Evaluate Tree</button>
-      <button disabled={expression === undefined} onClick={() => evaluate(false)}>Evaluate String</button>
-      <span>{result}</span>
-    </>
+    <div className="border">
+      <table className="center left mb">
+        <thead>
+          <th>Answer</th>
+          <th>Answer Type</th>
+          <th>Value</th>
+        </thead>
+        <tbody>
+          {questions.map(question =>
+            <tr key={question.name}>
+              <td>{question.name}</td>
+              <td>{question.answerType}</td>
+              <td>
+                {question.answerType === AnswerType.BOOLEAN
+                  ? <input onChange={event => changeRadio(question.name, event)} type="checkbox" checked={context[question.name] === 'true'} />
+                  : <input onBlur={event => trimValue(question.name, event)} onChange={event => changeValue(question.name, event)} value={context[question.name] || ''} />
+                }
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+      <div className="center">
+        <button disabled={expression === undefined} onClick={() => evaluate(true)}>Evaluate Tree</button>
+        <button disabled={expression === undefined} onClick={() => evaluate(false)}>Evaluate String</button>
+      </div>
+    </div>
   )
 }

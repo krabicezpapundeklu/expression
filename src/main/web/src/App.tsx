@@ -30,7 +30,7 @@ export const App = () => {
   return (
     <>
       {expression.render(questions, changeExpression)}
-      <pre>{expressionString}</pre>
+      <div className="border center mono">{expressionString}</div>
       <Eval questions={questions} expression={cleanExpression} />
     </>
   )

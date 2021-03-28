@@ -55,19 +55,23 @@ export class ExpressionList implements Expression {
     }
 
     return (
-      <div className="expression-list">
-        <ol>
+      <div className="border">
+        <div>
           <label><input type="radio" checked={this.operator === Operator.AND} value="&amp;&amp;" onChange={changeOperator} />AND</label>
           <label><input type="radio" checked={this.operator === Operator.OR} value="||" onChange={changeOperator} />OR</label>
-          {onRemove ? <button onClick={onRemove}>Remove</button> : ''}
+          {onRemove ? <button className="fr" onClick={onRemove}>Remove</button> : ''}
+        </div>
+        <div className="border">
           {this.expressions.map((expression: Expression, index: number) =>
-            <li key={index}>
+            <div key={index}>
               {expression.render(questions, expression => changeExpression(expression, index), () => removeExpression(index))}
-            </li>
+            </div>
           )}
-        </ol>
-        <button onClick={addQuestionExpression}>Add Question Expression</button>
-        <button onClick={addExpressionList}>Add Expression List</button>
+          <div>
+            <button onClick={addQuestionExpression}>Add Question Expression</button>
+            <button onClick={addExpressionList}>Add Expression List</button>
+          </div>
+        </div>
       </div>
     )
   }
