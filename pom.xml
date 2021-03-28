@@ -7,7 +7,7 @@
         <version>2.4.4</version>
         <relativePath />
     </parent>
-    <groupId>com.monster</groupId>
+    <groupId>info.jarda</groupId>
     <artifactId>expression</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>expression</name>
