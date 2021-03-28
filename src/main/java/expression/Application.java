@@ -1,11 +1,11 @@
-package com.monster.expression;
+package expression;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class EligibilityApplication {
+public class Application {
     public static void main(String... args) {
-        SpringApplication.run(EligibilityApplication.class, args);
+        SpringApplication.run(Application.class, args);
     }
 }

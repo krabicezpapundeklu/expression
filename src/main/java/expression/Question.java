@@ -1,4 +1,4 @@
-package com.monster.expression;
+package expression;
 
 public class Question {
     private final String name;

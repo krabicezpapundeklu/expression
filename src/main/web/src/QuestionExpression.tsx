@@ -93,6 +93,6 @@ export class QuestionExpression implements Expression {
   }
 
   toString() {
-    return `${this.question} ${this.operator} "${this.answer.replaceAll('"', '\\"')}"`;
+    return `${this.question} ${this.operator} "${this.answer.replaceAll('\\', '\\\\').replaceAll('"', '\\"')}"`;
   }
 }

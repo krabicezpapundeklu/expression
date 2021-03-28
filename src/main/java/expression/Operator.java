@@ -1,4 +1,4 @@
-package com.monster.expression;
+package expression;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 

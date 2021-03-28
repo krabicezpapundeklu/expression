@@ -1,4 +1,4 @@
-package com.monster.expression;
+package expression;
 
 public enum AnswerType {
     BOOLEAN, NUMBER, TEXT

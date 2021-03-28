@@ -1,6 +1,6 @@
-package com.monster.expression;
+package expression;
 
-import static com.monster.expression.Operator.IN;
+import static expression.Operator.IN;
 
 import java.util.Arrays;
 import java.util.List;
@@ -78,7 +78,7 @@ public class QuestionExpression implements Expression {
 
     @Override
     public String toString() {
-        return question + ' ' + operator.getText() + " \"" + answer.replaceAll("\"", "\\\\\"") + '"';
+        return question + ' ' + operator.getText() + " \"" + answer.replaceAll("\\\\", "\\\\\\\\").replaceAll("\"", "\\\\\"") + '"';
     }
 
     private static Object map(AnswerType answerType, String value) {

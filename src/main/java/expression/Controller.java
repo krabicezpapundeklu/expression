@@ -1,7 +1,7 @@
-package com.monster.expression;
+package expression;
 
-import static com.monster.expression.AnswerType.*;
-import static com.monster.expression.Operator.*;
+import static expression.AnswerType.*;
+import static expression.Operator.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class EligibilityController {
+public class Controller {
     @PostMapping("/evaluate")
     public boolean evaluate(@RequestBody EvaluateDTO evaluateDTO) throws Exception {
         return evaluateDTO.getExpression().evaluate(evaluateDTO.getContext(), getQuestions());
