@@ -1,16 +1,16 @@
 package expression;
 
 import org.testng.annotations.Test;
-import static org.testng.AssertJUnit.*;
+import static org.testng.Assert.*;
 
 @Test
 public class ExpressionListTest {
     private static final Expression TRUE_EXPRESSION = (context, questions) -> true;
     private static final Expression FALSE_EXPRESSION = (context, questions) -> false;
 
-    public void testAnd() throws Exception {
-        Expression expression;
+    private Expression expression;
 
+    public void testAnd() throws Exception {
         expression = new ExpressionList(Operator.AND);
         assertTrue(expression.evaluate(null, null));
 
@@ -22,8 +22,6 @@ public class ExpressionListTest {
     }
 
     public void testOr() throws Exception {
-        Expression expression;
-
         expression = new ExpressionList(Operator.OR);
         assertTrue(expression.evaluate(null, null));
 
