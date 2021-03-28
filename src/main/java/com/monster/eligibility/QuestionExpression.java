@@ -36,21 +36,25 @@ public class QuestionExpression implements Expression {
     @Override
     public boolean evaluate(Map<String, String> context, List<Question> questions) throws Exception {
         AnswerType answerType = questions.stream().filter(q -> q.getName().equals(question)).findFirst().get().getAnswerType();
+        Object q = map(answerType, context.getOrDefault(question, ""));
 
-        Object q = map(answerType, context.get(question));
+        if(q == null) {
+            return false;
+        }
 
         if(operator == IN) {
-            return Arrays.stream(value.split(" ,;")).anyMatch(v -> Objects.equals(q, map(answerType, v)));
+            String[] values = value.split("[ ,;]");
+            return Arrays.stream(values).anyMatch(v -> !v.isEmpty() && q.equals(map(answerType, v)));
         }
 
         Object a = map(answerType, value);
 
         switch(operator) {
             case EQUAL:
-                return Objects.equals(q, a);
+                return q.equals(a);
 
             case NOT_EQUAL:
-                return !Objects.equals(q, a);
+                return !q.equals(a);
 
             case LESS_THAN:
                 return ((Comparable)q).compareTo(a) < 0;
@@ -78,15 +82,21 @@ public class QuestionExpression implements Expression {
     }
 
     private static Object map(AnswerType answerType, String value) {
-        switch(answerType) {
-            case BOOLEAN:
-                return "true".equals(value);
+        value = value == null ? null : value.trim();
 
-            case NUMBER:
-                return Long.parseLong(value);
+        try {
+            switch (answerType) {
+                case BOOLEAN:
+                    return "true".equals(value);
 
-            default:
-                return value;
+                case NUMBER:
+                    return Long.parseLong(value);
+
+                default:
+                    return value;
+            }
+        } catch(Exception e) {
+            return null;
         }
     }
 }

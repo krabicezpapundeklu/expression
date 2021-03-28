@@ -1,4 +1,5 @@
 import './App.css'
+import { Eval } from './Eval';
 import { Expression, mapExpression } from './Expression';
 import { ExpressionList } from './ExpressionList';
 import { Operator } from './Operator';
@@ -19,59 +20,28 @@ export const App = () => {
   }
 
   const cleanExpression = expression.clean();
-  const expressionString = cleanExpression?.toString();
+
+  let expressionString = '';
+
+  if(cleanExpression !== undefined) {
+    expressionString = cleanExpression.toString();
+
+    if(expressionString[0] === '(') {
+      expressionString = expressionString.substring(1, expressionString.length - 1);
+    }
+  }
 
   return (
     <>
       <h1>Eligibility Demo</h1>
       <h2>Expression Builder</h2>
       {expression.render(questions, changeExpression)}
-      <h2>Expression Tree</h2>
-      <pre>
-        {JSON.stringify(cleanExpression, null, 2)}
-      </pre>
       <h2>Expression</h2>
       <pre>
         {expressionString}
       </pre>
       <h2>Evaluation</h2>
-      <Eval expression={cleanExpression} />
-    </>
-  )
-}
-
-interface EvalProps {
-  expression: Expression | undefined;
-}
-
-const Eval = (props: EvalProps) => {
-  const { expression } = props;
-  const [context, setContext] = useState({});
-  const [result, setResult] = useState('');
-
-  const evaluate = () => {
-    fetch('/evaluate', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ expression, context })
-    })
-      .then(data => {
-        if(!data.ok) {
-          throw new Error(data.statusText);
-        }
-
-        return data.json();
-      })
-      .then(data => setResult(`Result: ${data}`))
-      .catch(error => setResult(error.toString()));
-  }
-
-  return (
-    <>
-      <button disabled={expression === undefined} onClick={evaluate}>Evaluate</button>
-      <span>{result}</span>
+      <Eval questions={questions} expression={cleanExpression} />
     </>
   )
 }

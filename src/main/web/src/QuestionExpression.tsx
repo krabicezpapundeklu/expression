@@ -44,6 +44,10 @@ export class QuestionExpression implements Expression {
     }
 
     const changeValue = (event: ChangeEvent<HTMLInputElement>) => {
+      onChange(new QuestionExpression(this.question, this.operator, event.target.value));
+    }
+
+    const trimValue = (event: ChangeEvent<HTMLInputElement>) => {
       onChange(new QuestionExpression(this.question, this.operator, event.target.value.trim()));
     }
 
@@ -69,7 +73,7 @@ export class QuestionExpression implements Expression {
               <option key={operator} value={operator}>{operator}</option>
             )}
           </select>
-          <input onChange={changeValue} value={expression.value} />
+          <input onBlur={trimValue} onChange={changeValue} value={expression.value} />
         </>
       )
     }
